@@ -1,6 +1,114 @@
-﻿@{
-    ViewData["Title"] = "Privacy Policy";
-}
-<h1>@ViewData["Title"]</h1>
+﻿@model List<AttLiveDemo.Models.Employee>
 
-<p>Use this page to detail your site's privacy policy.</p>
+@{
+    ViewData["Title"] = "Employee Directory";
+}
+
+<style>
+    .employee-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    
+    .employee-header {
+        text-align: center;
+        color: #2c3e50;
+        margin-bottom: 30px;
+        font-weight: bold;
+    }
+    
+    .employee-table {
+        width: 100%;
+        border-collapse: collapse;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        background-color: white;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+    
+    .employee-table thead {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+    }
+    
+    .employee-table th {
+        padding: 15px;
+        text-align: left;
+        font-weight: 600;
+        text-transform: uppercase;
+        font-size: 14px;
+        letter-spacing: 0.5px;
+    }
+    
+    .employee-table td {
+        padding: 12px 15px;
+        border-bottom: 1px solid #e0e0e0;
+    }
+    
+    .employee-table tbody tr {
+        transition: background-color 0.3s ease;
+    }
+    
+    .employee-table tbody tr:hover {
+        background-color: #f5f7fa;
+    }
+    
+    .employee-table tbody tr:last-child td {
+        border-bottom: none;
+    }
+    
+    .department-badge {
+        display: inline-block;
+        padding: 4px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        font-weight: 500;
+        background-color: #e3f2fd;
+        color: #1976d2;
+    }
+    
+    .job-title {
+        color: #555;
+        font-weight: 500;
+    }
+</style>
+
+<div class="employee-container">
+    <h1 class="employee-header">@ViewData["Title"]</h1>
+    
+    <table class="employee-table">
+        <thead>
+            <tr>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Hiring Date</th>
+                <th>Department</th>
+                <th>Job Title</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var employee in Model)
+                {
+                    <tr>
+                        <td>@employee.FirstName</td>
+                        <td>@employee.LastName</td>
+                        <td>@employee.HiringDate</td>
+                        <td><span class="department-badge">@employee.Department</span></td>
+                        <td class="job-title">@employee.JobTitle</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="5" style="text-align: center; padding: 20px; color: #999;">
+                        No employee data available
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
